@@ -25,7 +25,7 @@ export default async function handler(req, res) {
 
     // Connect to the MongoDB server
     await client.connect();
-    const database = client.db('medicare');
+    const database = client.db('SmartWasteCluster');
     const collection = database.collection('contacts');
 
     // Add metadata to the contact data
