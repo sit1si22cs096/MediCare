@@ -38,23 +38,19 @@ function setupAppointmentForm() {
                 createdAt: new Date().toISOString()
             };
             
-            // In production, this would call the Vercel API endpoint
-            // For demonstration, we'll simulate a successful response
-            setTimeout(function() {
+            // Call the Vercel API endpoint to store in MongoDB
+            fetch('/api/appointments', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(appointmentData)
+            })
+            .then(response => response.json())
+            .then(data => {
                 try {
-                    // Store appointment data locally for demo purposes
+                    // For fallback, also store appointment data locally
                     storeAppointmentLocally(appointmentData);
-                    
-                    // When deployed to Vercel, uncomment this code to use the API route
-                    /*
-                    fetch('/api/appointments', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify(appointmentData)
-                    });
-                    */
                     
                     // Show success message
                     showMessage('success', 'Appointment request submitted successfully! We will contact you shortly.');
@@ -73,7 +69,13 @@ function setupAppointmentForm() {
                     submitBtn.textContent = originalBtnText;
                     submitBtn.disabled = false;
                 }
-            }, 1000); // Simulate network delay of 1 second
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                showMessage('error', 'An error occurred while connecting to the server. Please try again later.');
+                submitBtn.textContent = originalBtnText;
+                submitBtn.disabled = false;
+            });
         });
     }
 }
@@ -103,23 +105,19 @@ function setupContactForm() {
                 createdAt: new Date().toISOString()
             };
             
-            // In production, this would call the Vercel API endpoint
-            // For demonstration, we'll simulate a successful response
-            setTimeout(function() {
+            // Call the Vercel API endpoint to store in MongoDB
+            fetch('/api/contact', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(contactData)
+            })
+            .then(response => response.json())
+            .then(data => {
                 try {
-                    // Store contact data locally for demo purposes
+                    // For fallback, also store contact data locally
                     storeContactLocally(contactData);
-                    
-                    // When deployed to Vercel, uncomment this code to use the API route
-                    /*
-                    fetch('/api/contact', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify(contactData)
-                    });
-                    */
                     
                     // Show success message
                     showMessage('success', 'Your message has been sent successfully! We will get back to you soon.');
@@ -137,7 +135,13 @@ function setupContactForm() {
                     submitBtn.textContent = originalBtnText;
                     submitBtn.disabled = false;
                 }
-            }, 1000); // Simulate network delay of 1 second
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                showMessage('error', 'An error occurred while connecting to the server. Please try again later.');
+                submitBtn.textContent = originalBtnText;
+                submitBtn.disabled = false;
+            });
         });
     }
 }

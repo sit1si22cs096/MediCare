@@ -1,0 +1,15 @@
+{
+  "name": "new-folder",
+  "version": "1.0.0",
+  "description": "A responsive medical website designed for a college project, with AWS cloud integration for backend services.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "mongodb": "^6.16.0"
+  }
+}

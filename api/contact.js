@@ -1,9 +1,16 @@
 // Vercel API route for handling contact form submissions
+import { MongoClient } from 'mongodb';
 
-export default function handler(req, res) {
+// Connection URI from environment variable
+const uri = process.env.MONGODB_URI;
+
+export default async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ message: 'Method not allowed' });
   }
+
+  // Create a new MongoClient
+  const client = new MongoClient(uri);
 
   try {
     const contactData = req.body;
@@ -16,29 +23,22 @@ export default function handler(req, res) {
       }
     }
 
-    // In a real application, you would store this data in a database
-    // For example, using Vercel KV, Vercel Postgres, or a third-party service
-    
-    // Example with Vercel KV (uncomment and configure when setting up Vercel KV)
-    /*
-    import { kv } from '@vercel/kv';
-    
-    // Generate a unique ID for the contact submission
-    const id = Date.now().toString();
-    
-    // Add metadata
+    // Connect to the MongoDB server
+    await client.connect();
+    const database = client.db('medicare');
+    const collection = database.collection('contacts');
+
+    // Add metadata to the contact data
     const contact = {
       ...contactData,
-      id,
+      id: Date.now().toString(),
       status: 'unread',
       createdAt: new Date().toISOString()
     };
+
+    // Insert the contact into the database
+    await collection.insertOne(contact);
     
-    // Store in Vercel KV
-    await kv.set(`contact:${id}`, JSON.stringify(contact));
-    */
-    
-    // For now, we'll just return a success response
     return res.status(200).json({ 
       success: true, 
       message: 'Your message has been sent successfully! We will get back to you soon.'
@@ -49,5 +49,8 @@ export default function handler(req, res) {
       success: false, 
       message: 'An error occurred while processing your message. Please try again.'
     });
+  } finally {
+    // Close the connection
+    await client.close();
   }
 }

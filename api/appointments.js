@@ -1,9 +1,16 @@
 // Vercel API route for handling appointment submissions
+import { MongoClient } from 'mongodb';
 
-export default function handler(req, res) {
+// Connection URI from environment variable
+const uri = process.env.MONGODB_URI;
+
+export default async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ message: 'Method not allowed' });
   }
+
+  // Create a new MongoClient
+  const client = new MongoClient(uri);
 
   try {
     const appointmentData = req.body;
@@ -16,29 +23,22 @@ export default function handler(req, res) {
       }
     }
 
-    // In a real application, you would store this data in a database
-    // For example, using Vercel KV, Vercel Postgres, or a third-party service
-    
-    // Example with Vercel KV (uncomment and configure when setting up Vercel KV)
-    /*
-    import { kv } from '@vercel/kv';
-    
-    // Generate a unique ID for the appointment
-    const id = Date.now().toString();
-    
-    // Add metadata
+    // Connect to the MongoDB server
+    await client.connect();
+    const database = client.db('medicare');
+    const collection = database.collection('appointments');
+
+    // Add metadata to the appointment data
     const appointment = {
       ...appointmentData,
-      id,
+      id: Date.now().toString(),
       status: 'pending',
       createdAt: new Date().toISOString()
     };
+
+    // Insert the appointment into the database
+    await collection.insertOne(appointment);
     
-    // Store in Vercel KV
-    await kv.set(`appointment:${id}`, JSON.stringify(appointment));
-    */
-    
-    // For now, we'll just return a success response
     return res.status(200).json({ 
       success: true, 
       message: 'Appointment request submitted successfully! We will contact you shortly.'
@@ -49,5 +49,8 @@ export default function handler(req, res) {
       success: false, 
       message: 'An error occurred while processing your request. Please try again.'
     });
+  } finally {
+    // Close the connection
+    await client.close();
   }
 }
