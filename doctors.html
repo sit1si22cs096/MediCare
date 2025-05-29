@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Doctors - MediCare</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="js/main.js" defer></script>
+    <script src="js/vercel-config.js" defer></script>
+    <style>
+        /* Additional styles for doctors page */
+        .page-header {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('images/doctors-header.jpg');
+            background-size: cover;
+            background-position: center;
+            color: #fff;
+            text-align: center;
+            padding: 100px 0;
+        }
+        
+        .page-header h2 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+        
+        .doctors-section {
+            padding: 80px 0;
+        }
+        
+        .doctors-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .doctor-card {
+            background-color: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .doctor-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .doctor-card img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+        }
+        
+        .doctor-info {
+            padding: 20px;
+        }
+        
+        .doctor-info h3 {
+            color: #0077cc;
+            margin-bottom: 5px;
+        }
+        
+        .doctor-info .specialty {
+            font-style: italic;
+            margin-bottom: 15px;
+            color: #666;
+        }
+        
+        .doctor-info p {
+            margin-bottom: 15px;
+        }
+        
+        .doctor-social {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .doctor-social a {
+            display: inline-block;
+            width: 35px;
+            height: 35px;
+            line-height: 35px;
+            background-color: #0077cc;
+            color: #fff;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+        
+        .doctor-social a:hover {
+            background-color: #005fa3;
+            transform: scale(1.1);
+        }
+        
+        .doctor-schedule {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+        }
+        
+        .doctor-schedule h4 {
+            margin-bottom: 10px;
+            color: #0077cc;
+        }
+        
+        .schedule-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
+        
+        .cta-section {
+            text-align: center;
+            margin-top: 50px;
+        }
+        
+        @media (max-width: 768px) {
+            .doctors-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <h1>MediCare</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="doctors.html" class="active">Doctors</a></li>
+                    <li><a href="appointments.html">Appointments</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <section class="page-header">
+        <div class="container">
+            <h2>Our Medical Professionals</h2>
+            <p>Meet our team of experienced and dedicated doctors</p>
+        </div>
+    </section>
+
+    <section class="doctors-section">
+        <div class="container">
+            <div class="doctors-grid">
+                <div class="doctor-card">
+                    <img src="images/doctor1.jpg" alt="Dr. Sarah Johnson">
+                    <div class="doctor-info">
+                        <h3>Dr. Sarah Johnson</h3>
+                        <div class="specialty">Cardiologist</div>
+                        <p>Dr. Johnson is a board-certified cardiologist with over 15 years of experience in diagnosing and treating heart conditions. She specializes in preventive cardiology and heart failure management.</p>
+                        <div class="doctor-schedule">
+                            <h4>Schedule</h4>
+                            <div class="schedule-item">
+                                <span>Monday, Wednesday</span>
+                                <span>9:00 AM - 5:00 PM</span>
+                            </div>
+                            <div class="schedule-item">
+                                <span>Friday</span>
+                                <span>10:00 AM - 4:00 PM</span>
+                            </div>
+                        </div>
+                        <div class="doctor-social">
+                            <a href="#"><i class="fab fa-linkedin"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="doctor-card">
+                    <img src="images/doctor2.jpg" alt="Dr. Michael Chen">
+                    <div class="doctor-info">
+                        <h3>Dr. Michael Chen</h3>
+                        <div class="specialty">Pediatrician</div>
+                        <p>Dr. Chen is a compassionate pediatrician with a special interest in child development and preventive care. He is known for his gentle approach and ability to connect with children of all ages.</p>
+                        <div class="doctor-schedule">
+                            <h4>Schedule</h4>
+                            <div class="schedule-item">
+                                <span>Monday, Tuesday, Thursday</span>
+                                <span>8:00 AM - 4:00 PM</span>
+                            </div>
+                            <div class="schedule-item">
+                                <span>Saturday</span>
+                                <span>9:00 AM - 1:00 PM</span>
+                            </div>
+                        </div>
+                        <div class="doctor-social">
+                            <a href="#"><i class="fab fa-linkedin"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="doctor-card">
+                    <img src="images/doctor3.jpg" alt="Dr. Emily Rodriguez">
+                    <div class="doctor-info">
+                        <h3>Dr. Emily Rodriguez</h3>
+                        <div class="specialty">General Physician</div>
+                        <p>Dr. Rodriguez is a dedicated general physician with expertise in managing chronic conditions and preventive medicine. She takes a holistic approach to patient care, focusing on overall wellness.</p>
+                        <div class="doctor-schedule">
+                            <h4>Schedule</h4>
+                            <div class="schedule-item">
+                                <span>Tuesday, Thursday</span>
+                                <span>9:00 AM - 6:00 PM</span>
+                            </div>
+                            <div class="schedule-item">
+                                <span>Wednesday</span>
+                                <span>10:00 AM - 7:00 PM</span>
+                            </div>
+                        </div>
+                        <div class="doctor-social">
+                            <a href="#"><i class="fab fa-linkedin"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="doctor-card">
+                    <img src="images/doctor4.jpg" alt="Dr. David Wilson">
+                    <div class="doctor-info">
+                        <h3>Dr. David Wilson</h3>
+                        <div class="specialty">Neurologist</div>
+                        <p>Dr. Wilson is a highly skilled neurologist specializing in the diagnosis and treatment of neurological disorders. He has conducted extensive research in stroke prevention and treatment.</p>
+                        <div class="doctor-schedule">
+                            <h4>Schedule</h4>
+                            <div class="schedule-item">
+                                <span>Monday, Wednesday, Friday</span>
+                                <span>9:00 AM - 5:00 PM</span>
+                            </div>
+                        </div>
+                        <div class="doctor-social">
+                            <a href="#"><i class="fab fa-linkedin"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="doctor-card">
+                    <img src="images/doctor5.jpg" alt="Dr. Lisa Thompson">
+                    <div class="doctor-info">
+                        <h3>Dr. Lisa Thompson</h3>
+                        <div class="specialty">Dermatologist</div>
+                        <p>Dr. Thompson is a board-certified dermatologist with expertise in medical, surgical, and cosmetic dermatology. She is passionate about skin cancer prevention and treatment.</p>
+                        <div class="doctor-schedule">
+                            <h4>Schedule</h4>
+                            <div class="schedule-item">
+                                <span>Tuesday, Thursday</span>
+                                <span>8:00 AM - 4:00 PM</span>
+                            </div>
+                            <div class="schedule-item">
+                                <span>Friday</span>
+                                <span>9:00 AM - 3:00 PM</span>
+                            </div>
+                        </div>
+                        <div class="doctor-social">
+                            <a href="#"><i class="fab fa-linkedin"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="doctor-card">
+                    <img src="images/doctor6.jpg" alt="Dr. Robert Brown">
+                    <div class="doctor-info">
+                        <h3>Dr. Robert Brown</h3>
+                        <div class="specialty">Orthopedic Surgeon</div>
+                        <p>Dr. Brown is an experienced orthopedic surgeon specializing in joint replacement and sports medicine. He uses minimally invasive techniques to ensure faster recovery times for his patients.</p>
+                        <div class="doctor-schedule">
+                            <h4>Schedule</h4>
+                            <div class="schedule-item">
+                                <span>Monday, Wednesday</span>
+                                <span>8:00 AM - 5:00 PM</span>
+                            </div>
+                            <div class="schedule-item">
+                                <span>Thursday</span>
+                                <span>10:00 AM - 6:00 PM</span>
+                            </div>
+                        </div>
+                        <div class="doctor-social">
+                            <a href="#"><i class="fab fa-linkedin"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="cta-section">
+                <h3>Need to consult with one of our doctors?</h3>
+                <p>Book an appointment today and take the first step towards better health.</p>
+                <a href="appointments.html" class="btn btn-primary">Book an Appointment</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-about">
+                    <h3>MediCare</h3>
+                    <p>Providing quality healthcare services with a personal touch since 2010.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="doctors.html">Doctors</a></li>
+                        <li><a href="appointments.html">Appointments</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-services">
+                    <h3>Services</h3>
+                    <ul>
+                        <li><a href="services.html#general-medicine">General Medicine</a></li>
+                        <li><a href="services.html#cardiology">Cardiology</a></li>
+                        <li><a href="services.html#pediatrics">Pediatrics</a></li>
+                        <li><a href="services.html#orthopedics">Orthopedics</a></li>
+                        <li><a href="services.html#neurology">Neurology</a></li>
+                        <li><a href="services.html#dermatology">Dermatology</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h3>Contact Us</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> 123 Medical Center Dr, College Town, CT 12345</p>
+                    <p><i class="fas fa-phone"></i> (123) 456-7890</p>
+                    <p><i class="fas fa-envelope"></i> info@medicare-college.com</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 MediCare. All rights reserved. | Designed for College Project</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

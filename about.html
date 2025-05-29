@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - MediCare</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="js/main.js" defer></script>
+    <script src="js/vercel-config.js" defer></script>
+    <style>
+        /* Additional styles for about page */
+        .page-header {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('images/about-header.jpg');
+            background-size: cover;
+            background-position: center;
+            color: #fff;
+            text-align: center;
+            padding: 100px 0;
+        }
+        
+        .page-header h2 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+        
+        .about-section {
+            padding: 80px 0;
+        }
+        
+        .about-content {
+            display: flex;
+            gap: 40px;
+            align-items: center;
+            margin-bottom: 60px;
+        }
+        
+        .about-text {
+            flex: 1;
+        }
+        
+        .about-text h3 {
+            color: #0077cc;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+        }
+        
+        .about-text p {
+            margin-bottom: 15px;
+        }
+        
+        .about-image {
+            flex: 1;
+        }
+        
+        .about-image img {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .mission-vision {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+        
+        .mission, .vision {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .mission h3, .vision h3 {
+            color: #0077cc;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .mission h3 i, .vision h3 i {
+            margin-right: 10px;
+            font-size: 1.5rem;
+        }
+        
+        .values-section {
+            padding: 80px 0;
+            background-color: #f8f9fa;
+        }
+        
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        
+        .value-card {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        
+        .value-card i {
+            font-size: 2.5rem;
+            color: #0077cc;
+            margin-bottom: 20px;
+        }
+        
+        .value-card h3 {
+            color: #0077cc;
+            margin-bottom: 15px;
+        }
+        
+        .team-section {
+            padding: 80px 0;
+        }
+        
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        
+        .team-member {
+            background-color: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        
+        .team-member img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+        
+        .team-info {
+            padding: 20px;
+        }
+        
+        .team-info h3 {
+            color: #0077cc;
+            margin-bottom: 5px;
+        }
+        
+        .team-info .position {
+            font-style: italic;
+            margin-bottom: 15px;
+            color: #666;
+        }
+        
+        .team-social {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .team-social a {
+            display: inline-block;
+            width: 35px;
+            height: 35px;
+            line-height: 35px;
+            background-color: #0077cc;
+            color: #fff;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+        
+        .team-social a:hover {
+            background-color: #005fa3;
+            transform: scale(1.1);
+        }
+        
+        .timeline-section {
+            padding: 80px 0;
+            background-color: #f8f9fa;
+        }
+        
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            background-color: #0077cc;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -3px;
+        }
+        
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            width: 50%;
+            box-sizing: border-box;
+        }
+        
+        .timeline-item:nth-child(odd) {
+            left: 0;
+        }
+        
+        .timeline-item:nth-child(even) {
+            left: 50%;
+        }
+        
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: #fff;
+            border: 4px solid #0077cc;
+            border-radius: 50%;
+            top: 15px;
+            right: -12px;
+            z-index: 1;
+        }
+        
+        .timeline-item:nth-child(even)::after {
+            left: -12px;
+        }
+        
+        .timeline-content {
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .timeline-content h3 {
+            color: #0077cc;
+            margin-bottom: 10px;
+        }
+        
+        .timeline-content .date {
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #666;
+        }
+        
+        @media (max-width: 992px) {
+            .about-content {
+                flex-direction: column;
+            }
+            
+            .about-image {
+                order: -1;
+            }
+            
+            .mission-vision {
+                grid-template-columns: 1fr;
+            }
+            
+            .timeline::after {
+                left: 31px;
+            }
+            
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+            
+            .timeline-item:nth-child(even) {
+                left: 0;
+            }
+            
+            .timeline-item::after {
+                left: 19px;
+                right: auto;
+            }
+            
+            .timeline-item:nth-child(even)::after {
+                left: 19px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <h1>MediCare</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="doctors.html">Doctors</a></li>
+                    <li><a href="appointments.html">Appointments</a></li>
+                    <li><a href="about.html" class="active">About Us</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <section class="page-header">
+        <div class="container">
+            <h2>About MediCare</h2>
+            <p>Learn more about our mission, vision, and the team behind our success</p>
+        </div>
+    </section>
+
+    <section class="about-section">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>Our Story</h3>
+                    <p>Founded in 2010, MediCare began with a simple mission: to provide accessible, high-quality healthcare services with a personal touch. What started as a small clinic with just three doctors has grown into a comprehensive medical center serving thousands of patients annually.</p>
+                    <p>Our journey has been driven by a commitment to excellence and a passion for patient care. Over the years, we have expanded our services, brought in specialists from various fields, and invested in cutting-edge medical technology to ensure that our patients receive the best possible care.</p>
+                    <p>Today, MediCare stands as a testament to our dedication to improving healthcare delivery and making a positive impact on the lives of our patients and the community we serve.</p>
+                </div>
+                <div class="about-image">
+                    <img src="images/about-image.jpg" alt="MediCare Building">
+                </div>
+            </div>
+            
+            <div class="mission-vision">
+                <div class="mission">
+                    <h3><i class="fas fa-bullseye"></i> Our Mission</h3>
+                    <p>To provide exceptional healthcare services that improve the quality of life for our patients through compassionate care, innovative treatments, and a commitment to excellence.</p>
+                    <p>We strive to make quality healthcare accessible to all and to create a healing environment where patients feel valued, respected, and cared for.</p>
+                </div>
+                <div class="vision">
+                    <h3><i class="fas fa-eye"></i> Our Vision</h3>
+                    <p>To be the leading healthcare provider known for excellence in patient care, innovative medical practices, and positive community impact.</p>
+                    <p>We envision a future where everyone has access to high-quality healthcare services, and where preventive care and education lead to healthier communities.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="values-section">
+        <div class="container">
+            <h2 class="section-title">Our Core Values</h2>
+            <div class="values-grid">
+                <div class="value-card">
+                    <i class="fas fa-user-md"></i>
+                    <h3>Excellence</h3>
+                    <p>We are committed to providing the highest standard of care and continuously improving our services to meet the evolving needs of our patients.</p>
+                </div>
+                <div class="value-card">
+                    <i class="fas fa-heart"></i>
+                    <h3>Compassion</h3>
+                    <p>We approach every patient with empathy, understanding, and respect, recognizing that each person's healthcare journey is unique.</p>
+                </div>
+                <div class="value-card">
+                    <i class="fas fa-handshake"></i>
+                    <h3>Integrity</h3>
+                    <p>We uphold the highest ethical standards in all our interactions, ensuring transparency, honesty, and accountability in everything we do.</p>
+                </div>
+                <div class="value-card">
+                    <i class="fas fa-users"></i>
+                    <h3>Teamwork</h3>
+                    <p>We believe in the power of collaboration, working together across disciplines to provide comprehensive and coordinated care.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="team-section">
+        <div class="container">
+            <h2 class="section-title">Our Leadership Team</h2>
+            <div class="team-grid">
+                <div class="team-member">
+                    <img src="images/ceo.jpg" alt="Dr. James Wilson">
+                    <div class="team-info">
+                        <h3>Dr. James Wilson</h3>
+                        <div class="position">Chief Executive Officer</div>
+                        <p>Dr. Wilson brings over 25 years of healthcare management experience to MediCare. His visionary leadership has been instrumental in our growth and success.</p>
+                        <div class="team-social">
+                            <a href="#"><i class="fab fa-linkedin"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <img src="images/cmo.jpg" alt="Dr. Patricia Lee">
+                    <div class="team-info">
+                        <h3>Dr. Patricia Lee</h3>
+                        <div class="position">Chief Medical Officer</div>
+                        <p>As our CMO, Dr. Lee oversees all medical operations and ensures that our clinical practices meet the highest standards of quality and safety.</p>
+                        <div class="team-social">
+                            <a href="#"><i class="fab fa-linkedin"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <img src="images/cno.jpg" alt="Sarah Martinez, RN">
+                    <div class="team-info">
+                        <h3>Sarah Martinez, RN</h3>
+                        <div class="position">Chief Nursing Officer</div>
+                        <p>With a passion for patient-centered care, Sarah leads our nursing staff and ensures that our patients receive compassionate and skilled nursing care.</p>
+                        <div class="team-social">
+                            <a href="#"><i class="fab fa-linkedin"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <img src="images/cto.jpg" alt="Mark Johnson">
+                    <div class="team-info">
+                        <h3>Mark Johnson</h3>
+                        <div class="position">Chief Technology Officer</div>
+                        <p>Mark leads our technology initiatives, implementing innovative solutions that enhance patient care, streamline operations, and improve the overall healthcare experience.</p>
+                        <div class="team-social">
+                            <a href="#"><i class="fab fa-linkedin"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="timeline-section">
+        <div class="container">
+            <h2 class="section-title">Our Journey</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>Foundation</h3>
+                        <div class="date">2010</div>
+                        <p>MediCare was founded with a small clinic and three dedicated doctors, focusing on general medicine and basic healthcare services.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>Expansion of Services</h3>
+                        <div class="date">2013</div>
+                        <p>We expanded our services to include specialized departments such as cardiology, pediatrics, and orthopedics, bringing in expert specialists to provide comprehensive care.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>New Facility</h3>
+                        <div class="date">2016</div>
+                        <p>We moved to our current state-of-the-art facility, equipped with modern medical technology and designed to provide a comfortable environment for our patients.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>Technology Integration</h3>
+                        <div class="date">2019</div>
+                        <p>We implemented advanced electronic health record systems and telemedicine services, enhancing our ability to provide efficient and accessible healthcare.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>Community Outreach</h3>
+                        <div class="date">2021</div>
+                        <p>We launched our community health initiative, providing free health screenings, educational programs, and preventive care services to underserved communities.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>Present Day</h3>
+                        <div class="date">2025</div>
+                        <p>Today, MediCare continues to grow and evolve, embracing innovation while staying true to our core mission of providing exceptional healthcare with a personal touch.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="appointment-cta">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Experience the MediCare Difference</h2>
+                <p>Join the thousands of satisfied patients who trust us with their health. Book an appointment today.</p>
+                <a href="appointments.html" class="btn btn-primary">Book Appointment</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-about">
+                    <h3>MediCare</h3>
+                    <p>Providing quality healthcare services with a personal touch since 2010.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="doctors.html">Doctors</a></li>
+                        <li><a href="appointments.html">Appointments</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-services">
+                    <h3>Services</h3>
+                    <ul>
+                        <li><a href="services.html#general-medicine">General Medicine</a></li>
+                        <li><a href="services.html#cardiology">Cardiology</a></li>
+                        <li><a href="services.html#pediatrics">Pediatrics</a></li>
+                        <li><a href="services.html#orthopedics">Orthopedics</a></li>
+                        <li><a href="services.html#neurology">Neurology</a></li>
+                        <li><a href="services.html#dermatology">Dermatology</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h3>Contact Us</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> 123 Medical Center Dr, College Town, CT 12345</p>
+                    <p><i class="fas fa-phone"></i> (123) 456-7890</p>
+                    <p><i class="fas fa-envelope"></i> info@medicare-college.com</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 MediCare. All rights reserved. | Designed for College Project</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,532 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Description": "AWS CloudFormation Template for MediCare Website",
+  "Parameters": {
+    "BucketName": {
+      "Type": "String",
+      "Description": "Name of the S3 bucket for website hosting",
+      "Default": "medicare-college-website"
+    },
+    "DomainName": {
+      "Type": "String",
+      "Description": "Domain name for the website (optional)",
+      "Default": ""
+    }
+  },
+  "Conditions": {
+    "HasDomainName": {
+      "Fn::Not": [
+        {
+          "Fn::Equals": [
+            {
+              "Ref": "DomainName"
+            },
+            ""
+          ]
+        }
+      ]
+    }
+  },
+  "Resources": {
+    "S3Bucket": {
+      "Type": "AWS::S3::Bucket",
+      "Properties": {
+        "BucketName": {
+          "Ref": "BucketName"
+        },
+        "AccessControl": "PublicRead",
+        "WebsiteConfiguration": {
+          "IndexDocument": "index.html",
+          "ErrorDocument": "error.html"
+        },
+        "CorsConfiguration": {
+          "CorsRules": [
+            {
+              "AllowedHeaders": [
+                "*"
+              ],
+              "AllowedMethods": [
+                "GET",
+                "HEAD"
+              ],
+              "AllowedOrigins": [
+                "*"
+              ],
+              "MaxAge": 3000
+            }
+          ]
+        }
+      }
+    },
+    "BucketPolicy": {
+      "Type": "AWS::S3::BucketPolicy",
+      "Properties": {
+        "Bucket": {
+          "Ref": "S3Bucket"
+        },
+        "PolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Sid": "PublicReadGetObject",
+              "Effect": "Allow",
+              "Principal": "*",
+              "Action": "s3:GetObject",
+              "Resource": {
+                "Fn::Join": [
+                  "",
+                  [
+                    "arn:aws:s3:::",
+                    {
+                      "Ref": "S3Bucket"
+                    },
+                    "/*"
+                  ]
+                ]
+              }
+            }
+          ]
+        }
+      }
+    },
+    "CloudFrontDistribution": {
+      "Type": "AWS::CloudFront::Distribution",
+      "Properties": {
+        "DistributionConfig": {
+          "Origins": [
+            {
+              "DomainName": {
+                "Fn::GetAtt": [
+                  "S3Bucket",
+                  "DomainName"
+                ]
+              },
+              "Id": "S3Origin",
+              "S3OriginConfig": {
+                "OriginAccessIdentity": ""
+              }
+            }
+          ],
+          "Enabled": true,
+          "DefaultRootObject": "index.html",
+          "DefaultCacheBehavior": {
+            "AllowedMethods": [
+              "GET",
+              "HEAD"
+            ],
+            "TargetOriginId": "S3Origin",
+            "ForwardedValues": {
+              "QueryString": false,
+              "Cookies": {
+                "Forward": "none"
+              }
+            },
+            "ViewerProtocolPolicy": "redirect-to-https",
+            "MinTTL": 0,
+            "DefaultTTL": 3600,
+            "MaxTTL": 86400
+          },
+          "PriceClass": "PriceClass_100",
+          "ViewerCertificate": {
+            "CloudFrontDefaultCertificate": true
+          }
+        }
+      }
+    },
+    "DynamoDBTable": {
+      "Type": "AWS::DynamoDB::Table",
+      "Properties": {
+        "TableName": "MediCare_Appointments",
+        "BillingMode": "PAY_PER_REQUEST",
+        "AttributeDefinitions": [
+          {
+            "AttributeName": "id",
+            "AttributeType": "S"
+          },
+          {
+            "AttributeName": "email",
+            "AttributeType": "S"
+          }
+        ],
+        "KeySchema": [
+          {
+            "AttributeName": "id",
+            "KeyType": "HASH"
+          }
+        ],
+        "GlobalSecondaryIndexes": [
+          {
+            "IndexName": "EmailIndex",
+            "KeySchema": [
+              {
+                "AttributeName": "email",
+                "KeyType": "HASH"
+              }
+            ],
+            "Projection": {
+              "ProjectionType": "ALL"
+            }
+          }
+        ]
+      }
+    },
+    "ContactFormTable": {
+      "Type": "AWS::DynamoDB::Table",
+      "Properties": {
+        "TableName": "MediCare_ContactForm",
+        "BillingMode": "PAY_PER_REQUEST",
+        "AttributeDefinitions": [
+          {
+            "AttributeName": "id",
+            "AttributeType": "S"
+          }
+        ],
+        "KeySchema": [
+          {
+            "AttributeName": "id",
+            "KeyType": "HASH"
+          }
+        ]
+      }
+    },
+    "AppointmentLambdaFunction": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "FunctionName": "MediCare_AppointmentHandler",
+        "Runtime": "nodejs14.x",
+        "Handler": "index.handler",
+        "Role": {
+          "Fn::GetAtt": [
+            "LambdaExecutionRole",
+            "Arn"
+          ]
+        },
+        "Code": {
+          "ZipFile": "exports.handler = async (event) => {\n  const requestBody = JSON.parse(event.body);\n  const { name, email, phone, date, time, doctor, message } = requestBody;\n  \n  // Generate a unique ID for the appointment\n  const id = Date.now().toString();\n  \n  // Create a DynamoDB client\n  const AWS = require('aws-sdk');\n  const dynamoDB = new AWS.DynamoDB.DocumentClient();\n  \n  // Prepare the item to be saved\n  const item = {\n    id,\n    name,\n    email,\n    phone,\n    date,\n    time,\n    doctor,\n    message,\n    createdAt: new Date().toISOString(),\n    status: 'pending'\n  };\n  \n  try {\n    // Save the appointment to DynamoDB\n    await dynamoDB.put({\n      TableName: 'MediCare_Appointments',\n      Item: item\n    }).promise();\n    \n    // Send confirmation email (in a real application)\n    // This would use Amazon SES or another email service\n    \n    return {\n      statusCode: 200,\n      headers: {\n        'Access-Control-Allow-Origin': '*',\n        'Content-Type': 'application/json'\n      },\n      body: JSON.stringify({\n        message: 'Appointment scheduled successfully',\n        appointmentId: id\n      })\n    };\n  } catch (error) {\n    console.error('Error saving appointment:', error);\n    \n    return {\n      statusCode: 500,\n      headers: {\n        'Access-Control-Allow-Origin': '*',\n        'Content-Type': 'application/json'\n      },\n      body: JSON.stringify({\n        message: 'Failed to schedule appointment',\n        error: error.message\n      })\n    };\n  }\n};\n"
+        },
+        "Environment": {
+          "Variables": {
+            "TABLE_NAME": "MediCare_Appointments"
+          }
+        },
+        "Timeout": 10
+      }
+    },
+    "ContactFormLambdaFunction": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "FunctionName": "MediCare_ContactFormHandler",
+        "Runtime": "nodejs14.x",
+        "Handler": "index.handler",
+        "Role": {
+          "Fn::GetAtt": [
+            "LambdaExecutionRole",
+            "Arn"
+          ]
+        },
+        "Code": {
+          "ZipFile": "exports.handler = async (event) => {\n  const requestBody = JSON.parse(event.body);\n  const { name, email, subject, message } = requestBody;\n  \n  // Generate a unique ID for the contact form submission\n  const id = Date.now().toString();\n  \n  // Create a DynamoDB client\n  const AWS = require('aws-sdk');\n  const dynamoDB = new AWS.DynamoDB.DocumentClient();\n  \n  // Prepare the item to be saved\n  const item = {\n    id,\n    name,\n    email,\n    subject,\n    message,\n    createdAt: new Date().toISOString(),\n    status: 'unread'\n  };\n  \n  try {\n    // Save the contact form submission to DynamoDB\n    await dynamoDB.put({\n      TableName: 'MediCare_ContactForm',\n      Item: item\n    }).promise();\n    \n    // Send notification email (in a real application)\n    // This would use Amazon SES or another email service\n    \n    return {\n      statusCode: 200,\n      headers: {\n        'Access-Control-Allow-Origin': '*',\n        'Content-Type': 'application/json'\n      },\n      body: JSON.stringify({\n        message: 'Contact form submitted successfully',\n        submissionId: id\n      })\n    };\n  } catch (error) {\n    console.error('Error saving contact form:', error);\n    \n    return {\n      statusCode: 500,\n      headers: {\n        'Access-Control-Allow-Origin': '*',\n        'Content-Type': 'application/json'\n      },\n      body: JSON.stringify({\n        message: 'Failed to submit contact form',\n        error: error.message\n      })\n    };\n  }\n};\n"
+        },
+        "Environment": {
+          "Variables": {
+            "TABLE_NAME": "MediCare_ContactForm"
+          }
+        },
+        "Timeout": 10
+      }
+    },
+    "LambdaExecutionRole": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Principal": {
+                "Service": [
+                  "lambda.amazonaws.com"
+                ]
+              },
+              "Action": [
+                "sts:AssumeRole"
+              ]
+            }
+          ]
+        },
+        "ManagedPolicyArns": [
+          "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+        ],
+        "Policies": [
+          {
+            "PolicyName": "DynamoDBAccess",
+            "PolicyDocument": {
+              "Version": "2012-10-17",
+              "Statement": [
+                {
+                  "Effect": "Allow",
+                  "Action": [
+                    "dynamodb:PutItem",
+                    "dynamodb:GetItem",
+                    "dynamodb:UpdateItem",
+                    "dynamodb:DeleteItem",
+                    "dynamodb:Query",
+                    "dynamodb:Scan"
+                  ],
+                  "Resource": [
+                    {
+                      "Fn::GetAtt": [
+                        "DynamoDBTable",
+                        "Arn"
+                      ]
+                    },
+                    {
+                      "Fn::GetAtt": [
+                        "ContactFormTable",
+                        "Arn"
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "ApiGateway": {
+      "Type": "AWS::ApiGateway::RestApi",
+      "Properties": {
+        "Name": "MediCareAPI",
+        "Description": "API for MediCare website",
+        "EndpointConfiguration": {
+          "Types": [
+            "REGIONAL"
+          ]
+        }
+      }
+    },
+    "AppointmentsResource": {
+      "Type": "AWS::ApiGateway::Resource",
+      "Properties": {
+        "RestApiId": {
+          "Ref": "ApiGateway"
+        },
+        "ParentId": {
+          "Fn::GetAtt": [
+            "ApiGateway",
+            "RootResourceId"
+          ]
+        },
+        "PathPart": "appointments"
+      }
+    },
+    "ContactResource": {
+      "Type": "AWS::ApiGateway::Resource",
+      "Properties": {
+        "RestApiId": {
+          "Ref": "ApiGateway"
+        },
+        "ParentId": {
+          "Fn::GetAtt": [
+            "ApiGateway",
+            "RootResourceId"
+          ]
+        },
+        "PathPart": "contact"
+      }
+    },
+    "AppointmentsMethod": {
+      "Type": "AWS::ApiGateway::Method",
+      "Properties": {
+        "RestApiId": {
+          "Ref": "ApiGateway"
+        },
+        "ResourceId": {
+          "Ref": "AppointmentsResource"
+        },
+        "HttpMethod": "POST",
+        "AuthorizationType": "NONE",
+        "Integration": {
+          "Type": "AWS_PROXY",
+          "IntegrationHttpMethod": "POST",
+          "Uri": {
+            "Fn::Join": [
+              "",
+              [
+                "arn:aws:apigateway:",
+                {
+                  "Ref": "AWS::Region"
+                },
+                ":lambda:path/2015-03-31/functions/",
+                {
+                  "Fn::GetAtt": [
+                    "AppointmentLambdaFunction",
+                    "Arn"
+                  ]
+                },
+                "/invocations"
+              ]
+            ]
+          }
+        }
+      }
+    },
+    "ContactMethod": {
+      "Type": "AWS::ApiGateway::Method",
+      "Properties": {
+        "RestApiId": {
+          "Ref": "ApiGateway"
+        },
+        "ResourceId": {
+          "Ref": "ContactResource"
+        },
+        "HttpMethod": "POST",
+        "AuthorizationType": "NONE",
+        "Integration": {
+          "Type": "AWS_PROXY",
+          "IntegrationHttpMethod": "POST",
+          "Uri": {
+            "Fn::Join": [
+              "",
+              [
+                "arn:aws:apigateway:",
+                {
+                  "Ref": "AWS::Region"
+                },
+                ":lambda:path/2015-03-31/functions/",
+                {
+                  "Fn::GetAtt": [
+                    "ContactFormLambdaFunction",
+                    "Arn"
+                  ]
+                },
+                "/invocations"
+              ]
+            ]
+          }
+        }
+      }
+    },
+    "ApiGatewayDeployment": {
+      "Type": "AWS::ApiGateway::Deployment",
+      "DependsOn": [
+        "AppointmentsMethod",
+        "ContactMethod"
+      ],
+      "Properties": {
+        "RestApiId": {
+          "Ref": "ApiGateway"
+        },
+        "StageName": "prod"
+      }
+    },
+    "LambdaAppointmentPermission": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Ref": "AppointmentLambdaFunction"
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:aws:execute-api:",
+              {
+                "Ref": "AWS::Region"
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId"
+              },
+              ":",
+              {
+                "Ref": "ApiGateway"
+              },
+              "/*/POST/appointments"
+            ]
+          ]
+        }
+      }
+    },
+    "LambdaContactPermission": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Ref": "ContactFormLambdaFunction"
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:aws:execute-api:",
+              {
+                "Ref": "AWS::Region"
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId"
+              },
+              ":",
+              {
+                "Ref": "ApiGateway"
+              },
+              "/*/POST/contact"
+            ]
+          ]
+        }
+      }
+    }
+  },
+  "Outputs": {
+    "WebsiteURL": {
+      "Description": "URL for website hosted on S3",
+      "Value": {
+        "Fn::GetAtt": [
+          "S3Bucket",
+          "WebsiteURL"
+        ]
+      }
+    },
+    "CloudFrontURL": {
+      "Description": "URL for website hosted on CloudFront",
+      "Value": {
+        "Fn::Join": [
+          "",
+          [
+            "https://",
+            {
+              "Fn::GetAtt": [
+                "CloudFrontDistribution",
+                "DomainName"
+              ]
+            }
+          ]
+        ]
+      }
+    },
+    "ApiEndpoint": {
+      "Description": "URL of the API Gateway endpoint",
+      "Value": {
+        "Fn::Join": [
+          "",
+          [
+            "https://",
+            {
+              "Ref": "ApiGateway"
+            },
+            ".execute-api.",
+            {
+              "Ref": "AWS::Region"
+            },
+            ".amazonaws.com/prod"
+          ]
+        ]
+      }
+    }
+  }
+}

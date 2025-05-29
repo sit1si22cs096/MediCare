@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Services - MediCare</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="js/main.js" defer></script>
+    <script src="js/vercel-config.js" defer></script>
+    <style>
+        /* Additional styles for services page */
+        .page-header {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('images/services-header.jpg');
+            background-size: cover;
+            background-position: center;
+            color: #fff;
+            text-align: center;
+            padding: 100px 0;
+        }
+        
+        .page-header h2 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+        
+        .service-section {
+            padding: 80px 0;
+        }
+        
+        .service-section:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        
+        .service-container {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .service-container:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+        
+        .service-image {
+            flex: 1;
+            max-width: 500px;
+        }
+        
+        .service-image img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .service-content {
+            flex: 1;
+        }
+        
+        .service-content h3 {
+            color: #0077cc;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+        }
+        
+        .service-content p {
+            margin-bottom: 15px;
+        }
+        
+        .service-features {
+            margin: 20px 0;
+        }
+        
+        .service-features li {
+            margin-bottom: 10px;
+            padding-left: 30px;
+            position: relative;
+        }
+        
+        .service-features li:before {
+            content: '\f00c';
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
+            color: #0077cc;
+            position: absolute;
+            left: 0;
+        }
+        
+        .service-cta {
+            margin-top: 25px;
+        }
+        
+        @media (max-width: 992px) {
+            .service-container,
+            .service-container:nth-child(even) {
+                flex-direction: column;
+            }
+            
+            .service-image {
+                max-width: 100%;
+                margin-bottom: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <h1>MediCare</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="services.html" class="active">Services</a></li>
+                    <li><a href="doctors.html">Doctors</a></li>
+                    <li><a href="appointments.html">Appointments</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <section class="page-header">
+        <div class="container">
+            <h2>Our Medical Services</h2>
+            <p>Comprehensive healthcare services for you and your family</p>
+        </div>
+    </section>
+
+    <section class="service-section" id="general-medicine">
+        <div class="container">
+            <div class="service-container">
+                <div class="service-image">
+                    <img src="images/general-medicine.jpg" alt="General Medicine">
+                </div>
+                <div class="service-content">
+                    <h3>General Medicine</h3>
+                    <p>Our General Medicine department provides comprehensive care for adults, focusing on preventive care, diagnosis, and treatment of various health conditions.</p>
+                    <p>Our experienced physicians take a holistic approach to healthcare, considering all aspects of your health to provide personalized treatment plans.</p>
+                    <ul class="service-features">
+                        <li>Routine check-ups and physical examinations</li>
+                        <li>Diagnosis and treatment of common illnesses</li>
+                        <li>Management of chronic conditions</li>
+                        <li>Preventive healthcare and screenings</li>
+                        <li>Health education and lifestyle counseling</li>
+                        <li>Immunizations and vaccinations</li>
+                    </ul>
+                    <div class="service-cta">
+                        <a href="appointments.html" class="btn btn-primary">Book an Appointment</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="service-section" id="cardiology">
+        <div class="container">
+            <div class="service-container">
+                <div class="service-image">
+                    <img src="images/cardiology.jpg" alt="Cardiology">
+                </div>
+                <div class="service-content">
+                    <h3>Cardiology</h3>
+                    <p>Our Cardiology department specializes in the diagnosis and treatment of heart conditions using state-of-the-art technology and evidence-based practices.</p>
+                    <p>Our team of cardiologists is dedicated to providing exceptional care for patients with cardiovascular diseases, from prevention to advanced treatment options.</p>
+                    <ul class="service-features">
+                        <li>Comprehensive cardiac evaluations</li>
+                        <li>Electrocardiogram (ECG/EKG)</li>
+                        <li>Echocardiography</li>
+                        <li>Stress testing</li>
+                        <li>Holter monitoring</li>
+                        <li>Management of heart conditions</li>
+                        <li>Cardiac rehabilitation programs</li>
+                    </ul>
+                    <div class="service-cta">
+                        <a href="appointments.html" class="btn btn-primary">Book an Appointment</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="service-section" id="pediatrics">
+        <div class="container">
+            <div class="service-container">
+                <div class="service-image">
+                    <img src="images/pediatrics.jpg" alt="Pediatrics">
+                </div>
+                <div class="service-content">
+                    <h3>Pediatrics</h3>
+                    <p>Our Pediatrics department provides specialized healthcare for infants, children, and adolescents in a child-friendly environment designed to make them feel comfortable and at ease.</p>
+                    <p>Our pediatricians are trained to address the unique healthcare needs of growing children, from routine check-ups to complex medical conditions.</p>
+                    <ul class="service-features">
+                        <li>Well-child visits and growth monitoring</li>
+                        <li>Immunizations and vaccinations</li>
+                        <li>Developmental assessments</li>
+                        <li>Treatment of childhood illnesses and injuries</li>
+                        <li>Behavioral and mental health support</li>
+                        <li>Nutrition counseling</li>
+                        <li>Adolescent healthcare</li>
+                    </ul>
+                    <div class="service-cta">
+                        <a href="appointments.html" class="btn btn-primary">Book an Appointment</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="service-section" id="orthopedics">
+        <div class="container">
+            <div class="service-container">
+                <div class="service-image">
+                    <img src="images/orthopedics.jpg" alt="Orthopedics">
+                </div>
+                <div class="service-content">
+                    <h3>Orthopedics</h3>
+                    <p>Our Orthopedics department specializes in the diagnosis, treatment, and prevention of conditions affecting the musculoskeletal system, including bones, joints, ligaments, tendons, and muscles.</p>
+                    <p>Our orthopedic surgeons and specialists provide comprehensive care for patients of all ages, from sports injuries to joint replacements and spine conditions.</p>
+                    <ul class="service-features">
+                        <li>Diagnosis and treatment of bone and joint conditions</li>
+                        <li>Sports medicine and injury management</li>
+                        <li>Joint replacement surgery</li>
+                        <li>Fracture care and trauma surgery</li>
+                        <li>Spine care and surgery</li>
+                        <li>Physical therapy and rehabilitation</li>
+                        <li>Minimally invasive procedures</li>
+                    </ul>
+                    <div class="service-cta">
+                        <a href="appointments.html" class="btn btn-primary">Book an Appointment</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="service-section" id="neurology">
+        <div class="container">
+            <div class="service-container">
+                <div class="service-image">
+                    <img src="images/neurology.jpg" alt="Neurology">
+                </div>
+                <div class="service-content">
+                    <h3>Neurology</h3>
+                    <p>Our Neurology department focuses on the diagnosis and treatment of disorders of the nervous system, including the brain, spinal cord, and peripheral nerves.</p>
+                    <p>Our neurologists use advanced diagnostic techniques and treatment approaches to address a wide range of neurological conditions, from headaches to complex neurological disorders.</p>
+                    <ul class="service-features">
+                        <li>Comprehensive neurological evaluations</li>
+                        <li>Electroencephalogram (EEG)</li>
+                        <li>Electromyography (EMG)</li>
+                        <li>Treatment of headaches and migraines</li>
+                        <li>Management of epilepsy and seizure disorders</li>
+                        <li>Care for stroke patients</li>
+                        <li>Treatment of neurodegenerative diseases</li>
+                        <li>Sleep disorder diagnosis and management</li>
+                    </ul>
+                    <div class="service-cta">
+                        <a href="appointments.html" class="btn btn-primary">Book an Appointment</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="service-section" id="dermatology">
+        <div class="container">
+            <div class="service-container">
+                <div class="service-image">
+                    <img src="images/dermatology.jpg" alt="Dermatology">
+                </div>
+                <div class="service-content">
+                    <h3>Dermatology</h3>
+                    <p>Our Dermatology department specializes in the diagnosis and treatment of conditions affecting the skin, hair, and nails, using the latest techniques and technologies.</p>
+                    <p>Our dermatologists provide comprehensive care for patients of all ages, addressing both medical and cosmetic dermatological concerns with personalized treatment plans.</p>
+                    <ul class="service-features">
+                        <li>Diagnosis and treatment of skin conditions</li>
+                        <li>Skin cancer screening and treatment</li>
+                        <li>Acne and rosacea management</li>
+                        <li>Eczema and psoriasis care</li>
+                        <li>Dermatological surgery</li>
+                        <li>Cosmetic dermatology procedures</li>
+                        <li>Laser treatments</li>
+                        <li>Hair and nail disorder treatment</li>
+                    </ul>
+                    <div class="service-cta">
+                        <a href="appointments.html" class="btn btn-primary">Book an Appointment</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="appointment-cta">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Need a Specialist?</h2>
+                <p>Our team of experienced medical professionals is ready to provide you with the best care possible. Book an appointment today.</p>
+                <a href="appointments.html" class="btn btn-primary">Book Appointment</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-about">
+                    <h3>MediCare</h3>
+                    <p>Providing quality healthcare services with a personal touch since 2010.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="doctors.html">Doctors</a></li>
+                        <li><a href="appointments.html">Appointments</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-services">
+                    <h3>Services</h3>
+                    <ul>
+                        <li><a href="#general-medicine">General Medicine</a></li>
+                        <li><a href="#cardiology">Cardiology</a></li>
+                        <li><a href="#pediatrics">Pediatrics</a></li>
+                        <li><a href="#orthopedics">Orthopedics</a></li>
+                        <li><a href="#neurology">Neurology</a></li>
+                        <li><a href="#dermatology">Dermatology</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h3>Contact Us</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> 123 Medical Center Dr, College Town, CT 12345</p>
+                    <p><i class="fas fa-phone"></i> (123) 456-7890</p>
+                    <p><i class="fas fa-envelope"></i> info@medicare-college.com</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 MediCare. All rights reserved. | Designed for College Project</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
