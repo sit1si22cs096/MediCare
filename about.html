@@ -4,15 +4,58 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Us - MediCare</title>
-    <link rel="stylesheet" href="css/styles.css">
-    <link rel="stylesheet" href="css/enhanced-styles.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
+    <meta name="theme-color" content="#0056b3">
+    <link rel="stylesheet" href="css/mobile-optimized.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="format-detection" content="telephone=yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="js/main.js" defer></script>
     <script src="js/vercel-config.js" defer></script>
     <style>
         /* Additional styles for about page */
+        
+        .image-placeholder, .team-image-placeholder {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: #f0f5f9;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            padding: 40px;
+            border: 1px solid #e9ecef;
+            height: 100%;
+            min-height: 300px;
+        }
+        
+        .team-image-placeholder {
+            width: 100%;
+            min-height: 250px;
+            border-radius: 10px 10px 0 0;
+            background: linear-gradient(135deg, #f0f5f9 0%, #e4edf5 100%);
+        }
+        
+        .image-placeholder i, .team-image-placeholder i {
+            font-size: 48px;
+            color: #1a5f7a;
+            margin-bottom: 20px;
+        }
+        
+        .image-placeholder span, .team-image-placeholder span {
+            font-weight: 600;
+            color: #333;
+            font-size: 18px;
+        }
+        
+        .image-placeholder:hover, .team-image-placeholder:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(26, 95, 122, 0.15);
+            background-color: #fff;
+            border-color: #57c5b6;
+        }
         .page-header {
             background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('images/about-header.jpg');
             background-size: cover;
@@ -329,7 +372,10 @@
                     <p>Today, MediCare stands as a testament to our dedication to improving healthcare delivery and making a positive impact on the lives of our patients and the community we serve.</p>
                 </div>
                 <div class="about-image">
-                    <img src="images/about-image.jpg" alt="MediCare Building">
+                    <div class="image-placeholder">
+                        <i class="fas fa-hospital-alt"></i>
+                        <span>MediCare Building</span>
+                    </div>
                 </div>
             </div>
             
@@ -381,7 +427,10 @@
             <h2 class="section-title">Our Leadership Team</h2>
             <div class="team-grid">
                 <div class="team-member">
-                    <img src="images/ceo.jpg" alt="Dr. James Wilson">
+                    <div class="team-image-placeholder">
+                        <i class="fas fa-user-md"></i>
+                        <span>CEO</span>
+                    </div>
                     <div class="team-info">
                         <h3>Dr. James Wilson</h3>
                         <div class="position">Chief Executive Officer</div>
@@ -393,7 +442,10 @@
                     </div>
                 </div>
                 <div class="team-member">
-                    <img src="images/cmo.jpg" alt="Dr. Patricia Lee">
+                    <div class="team-image-placeholder">
+                        <i class="fas fa-user-md"></i>
+                        <span>CMO</span>
+                    </div>
                     <div class="team-info">
                         <h3>Dr. Patricia Lee</h3>
                         <div class="position">Chief Medical Officer</div>
@@ -405,7 +457,10 @@
                     </div>
                 </div>
                 <div class="team-member">
-                    <img src="images/cno.jpg" alt="Sarah Martinez, RN">
+                    <div class="team-image-placeholder">
+                        <i class="fas fa-user-nurse"></i>
+                        <span>CNO</span>
+                    </div>
                     <div class="team-info">
                         <h3>Sarah Martinez, RN</h3>
                         <div class="position">Chief Nursing Officer</div>
@@ -417,7 +472,10 @@
                     </div>
                 </div>
                 <div class="team-member">
-                    <img src="images/cto.jpg" alt="Mark Johnson">
+                    <div class="team-image-placeholder">
+                        <i class="fas fa-laptop-code"></i>
+                        <span>CTO</span>
+                    </div>
                     <div class="team-info">
                         <h3>Mark Johnson</h3>
                         <div class="position">Chief Technology Officer</div>

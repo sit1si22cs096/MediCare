@@ -4,9 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Book an Appointment - MediCare</title>
-    <link rel="stylesheet" href="css/styles.css">
-    <link rel="stylesheet" href="css/enhanced-styles.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
+    <meta name="theme-color" content="#0056b3">
+    <link rel="stylesheet" href="css/mobile-optimized.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="format-detection" content="telephone=yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="js/main.js" defer></script>
@@ -14,17 +16,132 @@
     <style>
         /* Additional styles for appointment page */
         .appointment-form-section {
-            background-color: #f8f9fa;
+            background: #f0f5f9;
             padding: 80px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .appointment-form-section:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('images/pattern.png');
+            opacity: 0.05;
+            z-index: 0;
+        }
+        
+        .page-header {
+            background: linear-gradient(135deg, rgba(26, 95, 122, 0.9) 0%, rgba(0, 43, 54, 0.9) 100%), url('images/page-header.jpg');
+            background-size: cover;
+            background-position: center;
+            color: #fff;
+            text-align: center;
+            padding: 120px 0 80px;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 0;
+        }
+        
+        .page-header:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, #ff6b6b, #57c5b6);
+        }
+        
+        .page-header h2 {
+            font-size: 42px;
+            margin-bottom: 20px;
+            font-weight: 800;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            letter-spacing: 1px;
+        }
+        
+        .page-header p {
+            font-size: 20px;
+            max-width: 700px;
+            margin: 0 auto;
+            font-weight: 400;
         }
         
         .appointment-form-container {
             background-color: #fff;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 15px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
             padding: 40px;
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
+            border-top: 5px solid #1a5f7a;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .form-title {
+            color: #1a5f7a;
+            font-size: 28px;
+            font-weight: 700;
+            margin: 30px 0 20px;
+            text-align: center;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .form-title:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, #1a5f7a, #57c5b6);
+        }
+        
+        .form-title i {
+            color: #57c5b6;
+            margin-right: 10px;
+        }
+        
+        .section-divider {
+            text-align: center;
+            margin: 30px 0;
+            position: relative;
+        }
+        
+        .section-divider:before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(26, 95, 122, 0.3), transparent);
+        }
+        
+        .section-divider span {
+            display: inline-block;
+            position: relative;
+            background-color: #fff;
+            padding: 0 15px;
+            z-index: 1;
+        }
+        
+        .section-divider i {
+            font-size: 24px;
+            color: #57c5b6;
+            background-color: #fff;
+            width: 50px;
+            height: 50px;
+            line-height: 50px;
+            border-radius: 50%;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
         
         .form-grid {
@@ -43,27 +160,45 @@
         
         .form-group label {
             display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: #333;
+            margin-bottom: 10px;
+            font-weight: 700;
+            color: #1a5f7a;
+            font-size: 16px;
+            letter-spacing: 0.5px;
+            position: relative;
+        }
+        
+        .form-group label:after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 30px;
+            height: 2px;
+            background-color: #57c5b6;
         }
         
         .form-group input,
         .form-group select,
         .form-group textarea {
             width: 100%;
-            padding: 12px 15px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 1rem;
-            transition: border-color 0.3s ease;
+            padding: 15px 20px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background-color: #f8f9fa;
+            color: #1a1a2e;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
         }
         
         .form-group input:focus,
         .form-group select:focus,
         .form-group textarea:focus {
             outline: none;
-            border-color: #0077cc;
+            border-color: #57c5b6;
+            background-color: #ffffff;
+            box-shadow: 0 0 0 4px rgba(87, 197, 182, 0.1);
         }
         
         .form-group textarea {
@@ -72,19 +207,44 @@
         }
         
         .submit-btn {
-            background-color: #0077cc;
+            background: linear-gradient(135deg, #1a5f7a 0%, #159895 100%);
             color: #fff;
             border: none;
-            padding: 12px 25px;
-            border-radius: 5px;
-            font-weight: 600;
+            padding: 18px 30px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 18px;
             cursor: pointer;
-            transition: background-color 0.3s ease;
+            transition: all 0.3s ease;
             width: 100%;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 10px 20px rgba(26, 95, 122, 0.2);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .submit-btn:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 100%;
+            background: linear-gradient(135deg, #159895 0%, #57c5b6 100%);
+            transition: all 0.5s ease;
+            z-index: -1;
+            border-radius: 50px;
         }
         
         .submit-btn:hover {
-            background-color: #005fa3;
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(26, 95, 122, 0.3);
+        }
+        
+        .submit-btn:hover:before {
+            width: 100%;
         }
         
         .alert {
@@ -106,26 +266,117 @@
         }
         
         .appointment-info {
+            color: #333;
             margin-bottom: 40px;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
         }
         
-        .appointment-info h3 {
-            color: #0077cc;
-            margin-bottom: 15px;
-        }
-        
-        .appointment-info p {
-            margin-bottom: 15px;
-        }
-        
-        .appointment-info ul {
+        .info-title {
+            color: #1a5f7a;
             margin-bottom: 20px;
+            font-size: 28px;
+            font-weight: 700;
+            text-align: center;
+            letter-spacing: 0.5px;
+        }
+        
+        .info-title i {
+            margin-right: 10px;
+            color: #57c5b6;
+        }
+        
+        .info-card {
+            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border-left: 5px solid #57c5b6;
+        }
+        
+        .info-intro {
+            font-size: 18px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #1a1a2e;
+            text-align: center;
+            font-weight: 500;
+        }
+        
+        .info-section {
+            margin-bottom: 25px;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .info-section h4 {
+            color: #1a5f7a;
+            margin-bottom: 15px;
+            font-size: 20px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+        }
+        
+        .info-section h4 i {
+            margin-right: 10px;
+            color: #57c5b6;
+        }
+        
+        .info-list {
+            margin-bottom: 0;
             padding-left: 20px;
         }
         
-        .appointment-info ul li {
-            margin-bottom: 10px;
-            list-style-type: disc;
+        .info-list li {
+            margin-bottom: 15px;
+            list-style-type: none;
+            position: relative;
+            padding-left: 30px;
+            color: #333;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+        
+        .info-list li:before {
+            content: '\f058';
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            top: 0;
+            color: #57c5b6;
+        }
+        
+        .highlight {
+            font-weight: 700;
+            color: #1a5f7a;
+            background-color: rgba(87, 197, 182, 0.1);
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+        
+        .emergency {
+            background-color: #fff8f8;
+            border-left: 5px solid #ff6b6b;
+        }
+        
+        .emergency h4 {
+            color: #ff6b6b;
+        }
+        
+        .emergency h4 i {
+            color: #ff6b6b;
+        }
+        
+        .phone {
+            font-size: 18px;
+            color: #ff6b6b;
+            font-weight: 700;
         }
         
         @media (max-width: 768px) {
@@ -171,22 +422,35 @@
             <p>Schedule a consultation with our experienced medical professionals</p>
         </div>
     </section>
-
     <section class="appointment-form-section">
         <div class="container">
             <div class="appointment-form-container">
                 <div class="appointment-info">
-                    <h3>Appointment Information</h3>
-                    <p>Please fill out the form below to schedule an appointment with one of our doctors. Our team will confirm your appointment within 24 hours.</p>
-                    <p>Important notes:</p>
-                    <ul>
-                        <li>Please arrive 15 minutes before your scheduled appointment time.</li>
-                        <li>Bring your insurance card and ID.</li>
-                        <li>If you need to cancel or reschedule, please give at least 24 hours notice.</li>
-                        <li>For emergency situations, please call our emergency hotline at (123) 456-7890 or visit the nearest emergency room.</li>
-                    </ul>
+                    <h3 class="info-title"><i class="fas fa-info-circle"></i> Appointment Information</h3>
+                    <div class="info-card">
+                        <p class="info-intro">Please fill out the form below to schedule an appointment with one of our doctors. Our staff will contact you within 24 hours to confirm your appointment.</p>
+                        
+                        <div class="info-section">
+                            <h4><i class="fas fa-clipboard-check"></i> Important Reminders</h4>
+                            <ul class="info-list">
+                                <li><span class="highlight">Please arrive 15 minutes</span> before your scheduled appointment time.</li>
+                                <li>Bring your <span class="highlight">insurance card</span> and a <span class="highlight">valid photo ID</span>.</li>
+                                <li>If you need to cancel or reschedule, please give at least <span class="highlight">24 hours notice</span>.</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="info-section emergency">
+                            <h4><i class="fas fa-ambulance"></i> Emergency Information</h4>
+                            <p>For emergency situations, please call our emergency hotline at <span class="highlight phone"><i class="fas fa-phone"></i> (123) 456-7890</span> or visit the nearest emergency room.</p>
+                        </div>
+                    </div>
                 </div>
                 
+                <div class="section-divider">
+                    <span><i class="fas fa-stethoscope"></i></span>
+                </div>
+                
+                <h3 class="form-title"><i class="fas fa-calendar-check"></i> Book Your Appointment</h3>
                 <form id="appointment-form" class="appointment-form">
                     <div class="form-grid">
                         <div class="form-group">
@@ -255,12 +519,70 @@
     <section class="insurance-section">
         <div class="container">
             <h2 class="section-title">Insurance We Accept</h2>
+            
+            <style>
+                .insurance-logos {
+                    display: flex;
+                    justify-content: center;
+                    flex-wrap: wrap;
+                    gap: 30px;
+                    margin: 40px 0;
+                }
+                
+                .insurance-placeholder {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                    width: 180px;
+                    height: 100px;
+                    background-color: #f8f9fa;
+                    border-radius: 10px;
+                    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+                    transition: all 0.3s ease;
+                    border: 1px solid #e9ecef;
+                }
+                
+                .insurance-placeholder i {
+                    font-size: 28px;
+                    color: #1a5f7a;
+                    margin-bottom: 10px;
+                }
+                
+                .insurance-placeholder span {
+                    font-weight: 600;
+                    color: #333;
+                    font-size: 16px;
+                }
+                
+                .insurance-placeholder:hover {
+                    transform: translateY(-5px);
+                    box-shadow: 0 10px 20px rgba(26, 95, 122, 0.1);
+                    background-color: #fff;
+                    border-color: #57c5b6;
+                }
+            </style>
             <div class="insurance-logos">
-                <img src="images/insurance1.png" alt="Insurance Provider 1">
-                <img src="images/insurance2.png" alt="Insurance Provider 2">
-                <img src="images/insurance3.png" alt="Insurance Provider 3">
-                <img src="images/insurance4.png" alt="Insurance Provider 4">
-                <img src="images/insurance5.png" alt="Insurance Provider 5">
+                <div class="insurance-placeholder">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>Aetna</span>
+                </div>
+                <div class="insurance-placeholder">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>Blue Cross</span>
+                </div>
+                <div class="insurance-placeholder">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>Cigna</span>
+                </div>
+                <div class="insurance-placeholder">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>UnitedHealth</span>
+                </div>
+                <div class="insurance-placeholder">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>Medicare</span>
+                </div>
             </div>
             <p class="text-center">If you don't see your insurance provider listed, please contact us to verify coverage.</p>
         </div>
