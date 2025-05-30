@@ -541,11 +541,6 @@ section h2.section-title::after {
   background-color: var(--secondary-color);
   color: var(--light-color);
   padding: 15px 20px;
-  border: none;
-  border-radius: 5px;
-  font-size: 18px;
-  font-weight: bold;
-  cursor: pointer;
   width: 100%;
   margin-top: 20px;
   box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
@@ -880,6 +875,103 @@ footer:before {
   font-size: 18px;
 }
 
+/* Mobile specific styles */
+@media (max-width: 767px) {
+  .menu-toggle {
+    display: block;
+    position: absolute;
+    right: 15px;
+    top: 15px;
+  }
+  
+  header .container {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px 15px;
+  }
+  
+  .logo {
+    margin-bottom: 10px;
+  }
+  
+  nav {
+    width: 100%;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+  
+  nav.active {
+    max-height: 500px;
+  }
+  
+  nav ul {
+    flex-direction: column;
+    width: 100%;
+    margin-top: 20px;
+  }
+  
+  nav ul li {
+    margin: 5px 0;
+    width: 100%;
+  }
+  
+  nav ul li a {
+    width: 100%;
+    text-align: center;
+    padding: 10px;
+    font-size: 14px;
+    min-width: auto;
+  }
+  
+  .hero-content h2 {
+    font-size: 28px;
+  }
+  
+  .hero-content p {
+    font-size: 16px;
+  }
+  
+  .section-title {
+    font-size: 24px;
+  }
+  
+  .feature-grid, .services-grid, .doctors-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+  
+  .container {
+    flex-wrap: wrap;
+  }
+  
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .doctor-schedule {
+    padding: 15px;
+  }
+  
+  .schedule-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .schedule-item span {
+    margin-bottom: 5px;
+  }
+  
+  .insurance-placeholder {
+    width: 100%;
+  }
+}
+
 /* Responsive improvements for larger screens */
 @media (min-width: 576px) {
   .hero-buttons {
@@ -944,7 +1036,8 @@ footer:before {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
+  position: relative;
 }
 
 .text-center {
