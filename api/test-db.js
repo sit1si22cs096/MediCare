@@ -5,8 +5,8 @@ export default async function handler(req, res) {
   // Log the environment variable (redacted for security)
   console.log('MongoDB URI available:', !!process.env.MONGODB_URI);
   
-  // Connection URI from environment variable
-  const uri = process.env.MONGODB_URI;
+  // Connection URI - using direct connection string for testing
+  const uri = 'mongodb+srv://manoharreddy8431:Manu2004@cluster0.mwkxs7a.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
   
   if (!uri) {
     return res.status(500).json({ 

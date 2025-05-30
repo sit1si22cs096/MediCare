@@ -1,8 +1,8 @@
 // Vercel API route for handling contact form submissions
 import { MongoClient } from 'mongodb';
 
-// Connection URI from environment variable
-const uri = process.env.MONGODB_URI;
+// Connection URI - using direct connection string for testing
+const uri = 'mongodb+srv://manoharreddy8431:Manu2004@cluster0.mwkxs7a.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
@@ -10,7 +10,19 @@ export default async function handler(req, res) {
   }
 
   // Create a new MongoClient
-  const client = new MongoClient(uri);
+  let client;
+  
+  try {
+    client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+    console.log('MongoDB client initialized successfully');
+  } catch (initError) {
+    console.error('Error initializing MongoDB client:', initError);
+    return res.status(500).json({ 
+      success: false, 
+      message: 'Error initializing database connection',
+      error: initError.message
+    });
+  }
 
   try {
     const contactData = req.body;
