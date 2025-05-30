@@ -44,6 +44,26 @@ header {
   border-bottom: 3px solid var(--primary-light);
 }
 
+/* Mobile menu toggle */
+.menu-toggle {
+  display: none;
+  font-size: 24px;
+  color: var(--light-color);
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.menu-toggle:hover {
+  background-color: var(--primary-light);
+}
+
 .logo {
   font-size: 28px;
   font-weight: 700;
@@ -92,6 +112,30 @@ nav ul li a {
   overflow: hidden;
   z-index: 1;
   font-size: 14px;
+}
+
+@media (max-width: 767px) {
+  nav ul li a {
+    display: block;
+    width: 100%;
+    padding: 12px 15px;
+    margin: 5px 0;
+    border-radius: 10px;
+    min-width: 100%;
+    font-size: 16px;
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+  
+  nav ul li a:hover, nav ul li a.active {
+    background-color: var(--primary-light);
+    color: var(--light-color);
+    transform: translateY(0);
+  }
+  
+  nav ul {
+    padding: 10px;
+    width: 100%;
+  }
 }
 
 nav ul li a:before {
@@ -878,10 +922,11 @@ footer:before {
 /* Mobile specific styles */
 @media (max-width: 767px) {
   .menu-toggle {
-    display: block;
+    display: flex;
     position: absolute;
     right: 15px;
     top: 15px;
+    z-index: 1001;
   }
   
   header .container {
@@ -898,11 +943,21 @@ footer:before {
     width: 100%;
     max-height: 0;
     overflow: hidden;
-    transition: max-height 0.3s ease;
+    transition: max-height 0.5s ease;
+    background-color: var(--primary-dark);
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
   }
   
   nav.active {
     max-height: 500px;
+    padding: 15px;
   }
   
   nav ul {
