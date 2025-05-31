@@ -14,6 +14,10 @@
     <script src="js/main.js" defer></script>
     <script src="js/vercel-config.js" defer></script>
     <style>
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+        
         /* Additional styles for appointment page */
         .appointment-form-section {
             background: #f0f5f9;
@@ -71,12 +75,22 @@
             font-weight: 400;
         }
         
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+            width: 100%;
+        }
+        
         .appointment-form-container {
             background-color: #fff;
             border-radius: 15px;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
             padding: 40px;
-            max-width: 900px;
+            margin-bottom: 40px;
+            width: 100%;
+            max-width: 100%;
+            overflow-x: hidden;
             margin: 0 auto;
             border-top: 5px solid #1a5f7a;
             position: relative;
@@ -148,19 +162,25 @@
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 20px;
+            width: 100%;
         }
         
         @media (max-width: 767px) {
             .form-grid {
                 grid-template-columns: 1fr;
+                width: 100%;
             }
             
             .appointment-form-container {
-                padding: 20px;
+                padding: 15px;
+                width: 100%;
+                box-sizing: border-box;
             }
             
             .info-section {
                 padding: 15px;
+                width: 100%;
+                box-sizing: border-box;
             }
             
             .section-divider {
@@ -177,6 +197,25 @@
             
             .info-intro {
                 font-size: 16px;
+            }
+            
+            .form-group {
+                width: 100%;
+                box-sizing: border-box;
+            }
+            
+            .form-group input,
+            .form-group select,
+            .form-group textarea {
+                width: 100%;
+                padding: 12px 15px;
+                font-size: 16px;
+            }
+            
+            .container {
+                padding: 0 10px;
+                width: 100%;
+                box-sizing: border-box;
             }
         }
         
@@ -220,6 +259,7 @@
             background-color: #f8f9fa;
             color: #1a1a2e;
             box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
+            box-sizing: border-box;
         }
         
         .form-group input:focus,
