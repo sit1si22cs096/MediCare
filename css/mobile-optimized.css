@@ -929,6 +929,8 @@ footer:before {
     padding: 10px 0;
     position: relative;
     z-index: 1000;
+    width: 100%;
+    box-sizing: border-box;
   }
   
   .menu-toggle {
@@ -972,13 +974,16 @@ footer:before {
     right: 0;
     z-index: 999;
     padding: 0;
+    box-sizing: border-box;
   }
   
   nav.active {
     max-height: 400px;
-    padding: 10px;
+    padding: 10px 15px;
     overflow-y: auto;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    box-sizing: border-box;
   }
   
   nav ul {
@@ -992,21 +997,24 @@ footer:before {
   nav ul li {
     margin: 0;
     width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
   }
   
   nav ul li a {
-    width: 100%;
+    width: 160px;
     text-align: center;
-    padding: 10px;
+    padding: 10px 0;
     font-size: 16px;
     min-width: auto;
     border-radius: 4px;
     background-color: rgba(255, 255, 255, 0.1);
     border: none;
     margin: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    display: block;
+    overflow: visible;
+    box-sizing: border-box;
   }
   
   nav ul li a:hover, nav ul li a.active {
