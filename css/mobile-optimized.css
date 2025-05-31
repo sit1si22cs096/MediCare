@@ -990,8 +990,8 @@ footer:before {
     flex-direction: column;
     width: 100%;
     margin: 0;
-    gap: 5px;
-    padding: 0;
+    gap: 8px;
+    padding: 5px 0;
   }
   
   nav ul li {
@@ -1003,23 +1003,27 @@ footer:before {
   }
   
   nav ul li a {
-    width: 160px;
+    width: 95%;
+    max-width: 300px;
     text-align: center;
-    padding: 10px 0;
-    font-size: 16px;
+    padding: 14px 0;
+    font-size: 18px;
     min-width: auto;
-    border-radius: 4px;
-    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    background-color: rgba(255, 255, 255, 0.15);
     border: none;
     margin: 0;
     display: block;
     overflow: visible;
     box-sizing: border-box;
+    font-weight: 600;
+    letter-spacing: 0.5px;
   }
   
   nav ul li a:hover, nav ul li a.active {
     background-color: var(--primary-light);
     transform: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   }
   
   nav ul li a:before {
